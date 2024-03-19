@@ -1,0 +1,79 @@
+
+// ProgInfo.JS determines the specifics about your program and then
+// displays this information on screen.
+// Create some constants for display purposes (buttons and icons).
+var intOK = 0;
+var intOKCancel = 1;
+var intAbortRetryIgnore = 2;
+var intYesNoCancel = 3;
+var intYesNo = 4;
+var intRetryCancel = 5;
+var intStop = 16;
+var intQuestion = 32;
+var intExclamation = 48;
+var intInformation = 64;
+// Create some popup return values.
+var intOK = 1;
+var intCancel = 2;
+var intAbort = 3;
+var intRetry = 4;
+var intIgnore = 5;
+var intYes = 6;
+var intNo = 7;
+var intClose = 8;
+var intHelp = 9;
+// Create a popup display object.
+var WshShell = WScript.CreateObject("WScript.Shell");
+// Create a variable for holding a popup return value. 
+var intReturn;
+// Get the program information and display it.
+WshShell.Popup("Full Name:\t" + WScript.Fullname +
+"\r\nInteractive:\t" + WScript.Interactive +
+"\r\nName:\t\t" + WScript.Name +
+"\r\nPath:\t\t" + WScript.Path +
+"\r\nScript Full Name:\t" + WScript.ScriptFullName +
+"\r\nScript Name:\t" + WScript.ScriptName +
+"\r\nVersion:\t\t" + WScript.Version,
+0,
+"Program Information Demonstration",
+intOK + intInformation);
+// Ask if the user wants to display the argument list.
+intReturn = WshShell.Popup("Do you want to display the argument list?",
+0,
+"Argument List Display",
+intYesNo + intQuestion);
+// Determine if the user wants to display the argument list and
+// display an appropriate message.
+if (intReturn == intYes)
+// See if there are any arguments to display.
+DisplayArguments();
+else
+WScript.Echo("Goodbye");
+function DisplayArguments()
+{
+// Create some variables.
+var strArguments = "Arguments:\r\n\t"; // Argument list.
+var intCount = 0; // Loop counter.
+// See if there are any arguments, if not, display an
+// appropriate message.
+if (WScript.Arguments.Length == 0)
+WshShell.Popup("There are no arguments to display.",
+0,
+"Argument List Display",
+intOK + intInformation);
+// If there are arguments to display, then create a list
+// first and display them all at once.
+else
+{
+for (intCount = 0;
+intCount < WScript.Arguments.Length;
+intCount++)
+strArguments = strArguments +
+WScript.Arguments.Item(intCount)
++ "\r\n\t";
+WshShell.Popup(strArguments,
+0,
+"Argument List Display",
+intOK + intInformation);
+}
+}
